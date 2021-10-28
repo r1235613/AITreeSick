@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" /> 
+    <title>Document</title>
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="reset.css">
+        <link rel="stylesheet" href="css/all.css">
+        <link rel="stylesheet" href="/比賽檔案/fontawesome/css/all.css">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+        <link rel="stylesheet" href="js/aos.css"/>
+        
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .body1{
+            width: 100%;
+            height: 605px;
+            position: relative;
+            background-image: url("img/background.jpg");
+            background-attachment: fixed; /* 固定圖像 */
+            background-repeat: no-repeat;
+            background-position: center center;
+            z-index: -9999;
+        }
+        .upload{
+            width: 800px;
+            height: 400px;
+            background-color: #fff;
+            box-shadow: 10px 10px 100px hsla(240, 40%, 15%);
+            position: absolute;
+            right: 250px;
+            top: 100px;            
+        }
+
+        #dianji{
+            position: absolute;
+            z-index: -2;
+            opacity: 0;
+        }
+
+        p{
+            border: 1px solid red;
+            height: 0px;
+          /* display: none; */
+          overflow: hidden;
+
+        }
+        input:checked~p{
+            /* display: block; */
+            overflow: visible;
+        }
+        .menu_btn{
+            width: 40px;
+            height: 40px;
+            background-color: #000;
+            display: block;
+            position: absolute;
+            top: 5px;
+            right: 10px;
+        }
+        .menu_btn::before{
+            content: '';
+            position: absolute;
+            height: 2px;
+            left: 2px;
+            width: 36px;
+            background-color: #fff;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            box-shadow: 0 8px 0 #fff ,
+                        0 -8px 0 #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="body1"></div>
+    <div class="upload">
+        <div class="choichphoto">
+          <form action="md5sum.php" enctype="multipart/form-data" method="post">
+              <input name="file" type="file">
+              <input name="submit" type="submit" value="upload">
+          </form>          
+        </div>
+        <div class="takephoto">
+          <form action="md5sum.php" enctype="multipart/form-data" method="post">
+            <input name="file" type="file" accept="image/*" capture="camera" >
+            <input name"submit" type="submit" value="photo">
+	        </form>
+        </div>            
+
+        <a href="首頁.html">回首頁</a>     
+    </div>
+    
+
+
+
+
+
+
+
+    
+ 
+  
+    <script>
+        class Camera {
+          constructor(root) {
+            this.root = root
+            this.width = width
+            this.height = height
+            this.video = null
+            this.canvas = null
+            this.canvasCtx = null
+            this.stream = null
+            this.photo = []
+            this.init()
+          }
+      
+          init() {
+            const constraints = {
+              video: {
+                width: this.width,
+                height: this.height
+              }
+            }
+            navigator.mediaDevices.getUserMedia(constraints)
+              .then(stream => {
+                this.mount(stream)
+              })
+              .catch(error => {
+                console.log(error)
+                alert('開啟相機失敗')
+              })
+          }
+      
+          mount(stream) {
+            const video = document.createElement('video')
+            const canvas = document.createElement('canvas')
+            video.width = this.width
+            video.height = this.height
+            video.style.display = 'block'
+            video.autoplay = 'autoplay'
+            video.srcObject = stream
+            canvas.width = this.width
+            canvas.height = this.height
+            this.video = video
+            this.canvas = canvas
+            this.canvasCtx = canvas.getContext('2d')
+      
+            if (!this.root) {
+              document.body.appendChild(this.video)
+              return false
+            }
+            if (typeof this.root === 'string') {
+              this.root = document.querySelector(this.root)
+            }
+            this.root.appendChild(this.video)
+          }
+      
+          takePhotos(showPhoto) {
+            if (!this.canvas) return ''
+            this.canvasCtx.drawImage(this.video, 0, 0, this.width, this.height)
+            const base64 = this.canvas.toDataURL('image/jpg')
+            if (showPhoto) {
+              const wrapper = document.createElement('div')
+              wrapper.style.position = 'relative'
+              wrapper.style.display = 'inline-block'
+              const image = new Image()
+              image.style.display = 'block'
+              image.src = base64
+              const download = document.createElement('a')
+              download.setAttribute('download', `${Date.now()}.jpg`);
+              download.innerText = '下載照片';
+              download.href = base64
+              download.style.position = 'absolute'
+              download.style.top = '0px'
+              download.style.right = '0px'
+      
+              wrapper.appendChild(image)
+              wrapper.appendChild(download)
+      
+              if (!this.root) {
+                document.body.appendChild(wrapper)
+              } else {
+                this.root.appendChild(wrapper)
+              }
+            }
+            this.photo.push(base64)
+            return base64
+          }
+        }
+      
+        const camera = new Camera()
+      
+        const takePhoto = document.querySelector('#takePhoto')
+        takePhoto.addEventListener('click', function () {
+          camera.takePhotos(true)
+        })
+      
+      </script>
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+    <script src="js/比賽.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script src="js/aos.js"></script>
+    <script src="js/loading.js"></script> 
+    <script src="js/jquery.min.js"></script>
+    <script src="js/Anchor point.js"></script>
+</body>
+</html>
