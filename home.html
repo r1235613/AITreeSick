@@ -6,9 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <!-- Bootstrap CSS -->
             <link rel="stylesheet" href="css/bootstrap.min.css">
-            <link rel="stylesheet" href="reset.css">
-            <link rel="stylesheet" href="css/all.css">
-            <link rel="stylesheet" href="/比賽檔案/fontawesome/css/all.css">
             <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
             <link rel="stylesheet" href="js/aos.css"/>
     <title>AI植物辨識</title>
@@ -16,10 +13,11 @@
         *{
             margin: 0;
             padding: 0;
+            
         }
         .body1{
             width: 100%;
-            height: 1800px;
+            height: 1600px;
             position: relative;
             background-image: url("img/background.jpg");
             background-attachment: fixed; /* 固定圖像 */
@@ -29,7 +27,7 @@
         }
         .body2{
             width: 100%;
-            height: 1000px;
+            height: 800px;
             position: relative;
             background-image: url("img/background-3.png");
             background-attachment: fixed; /* 固定圖像 */
@@ -81,10 +79,10 @@
         .header{
             position: absolute;
             top: 80px;
-            background-color: rgba(0, 0, 0, 0.5);
-            box-shadow: 0px 10px 100px hsla(240, 40%, 15%) inset;
+            background-image: url("img/background.jpg");
+            box-shadow: 0px 10px 100px hsla(240, 40%, 15%);
             width: 100%;
-            height: 200px;
+            height: 230px;
             overflow: auto;
         }
         .header h2{
@@ -97,21 +95,42 @@
             color:#fff;
             text-align: center;
             line-height: 40px;
-            padding: 0px 30px 0;
+            padding: 0px 30px ;
+            margin-bottom: 50px;
+        }
+        /*----------------專題影片------------------*/
+        .videobefore{
+            width:100%;
+            height:100px; /*視窗高度*/
+            background-color:#ccc;
+            background: linear-gradient(355.5deg, #fff 50%,transparent 50%) center center / 100% 100%;
+            position: absolute;
+            left: 0px;
+            top: 240px;
         }
         .videobar{
             width: 100%;
             height: 500px;
             background-color: #fff;
             position: absolute;
-            top: 280px;
+            top: 320px;
         }
-        .videobar video{
+        /*RWD Youtube 以及 Vimeo*/
+        .video iframe,.video object,.video embed{
+            position:absolute;
+            top: 5px;;
+            left: 10px;;
+            width: 350px;
+            height: 200px;
+        }
+        .videoafter{
+            width:100%;
+            height:100px; /*視窗高度*/
+            background-color:#ccc;
+            background: linear-gradient(355.5deg,transparent 50% ,#fff 50%) center center / 100% 100%;
             position: absolute;
-            width: 325px;
-            height: 180px;
-            top: 10px;
-            left: 30px;
+            left: 0px;
+            top: 820px;
         }
         .videotext{
             position: absolute;
@@ -123,7 +142,7 @@
         .videotext h2{
             font-size: 40px;
             margin-bottom: 10px;
-            margin-top: 50px;
+            margin-top: 60px;
             text-align: center;
         }
         .videotext p{
@@ -139,13 +158,15 @@
             width: 100%;
             height: 800px;
         }
+        /*----------------專題過程------------------*/
         .tips{
             width: 95%;
             height: 400px;
             background-color: #fff;
+            box-shadow: 10px 10px 100px hsla(240, 40%, 15%);
             position: absolute;
             right: 10px;
-            top: 900px;
+            top: 1000px;
             overflow: auto;
         }
         .tips h2{
@@ -167,9 +188,10 @@
             width: 95%;
             height: 500px;
             background-color: #fff;
+            box-shadow: 10px 10px 100px hsla(240, 40%, 15%);
             position: absolute;
             left: 10px;
-            top: 2040px;
+            top: 1740px;
         }
         .tips2 h2{
             font-size: 35px;
@@ -181,18 +203,10 @@
         .tips2 p{
             line-height: 30px;
         }
-        .tips3{
-            width: 100%;
-            height: 250px;
-            background-color: #fff;
-            position: absolute;
-            left: 0px;
-            top: 2660px;
-        }
         .tip4{
             width: 100%;
             position: absolute;
-            top: 3000px;
+            top: 2700px;
         }
         .tip4 h2{
             text-align: center;
@@ -202,7 +216,7 @@
         }
         .tip4 h2::before{
             content: '';
-            width: 450px;
+            width: 100%;
             height: 5px;
             display: inline-block;
             background: #fff;
@@ -211,7 +225,7 @@
         }
         .tip4 h2::after{
             content: '';
-            width: 450px;
+            width: 100%;
             height: 5px;
             display: inline-block;
             background: #fff;
@@ -348,10 +362,11 @@
         /*開始辨識----------------------------------*/
         .course{
             position: absolute;
-            top: 1520px;
+            top: 2360px;
             width: 100%;
-            height: 400px;
+            height: 250px;
             background-color: #fff;
+            box-shadow: 10px 10px 100px hsla(240, 40%, 15%);
         }
         .courseimg2 img{
             display: none; 
@@ -362,10 +377,19 @@
         .course h2{
             display: none;
         }
+        .mangosvg img {
+            position: absolute;
+            width: 360px;
+            top: -10px;
+            left: 15px;
+        }
+        .gotoben3{
+            display: none;
+        }
         .gotoben4{
             position: absolute;
-            right: 100px;
-            bottom: 50px;
+            right: 30px;
+            bottom: 10px;
             z-index: 4;
         }
         .gotoben4 a{
@@ -383,13 +407,21 @@
             box-shadow: 3px 3px 3px hsla(240, 40%, 15%);
         }
         /*----------------------------------*/
+        .tips3{
+            width: 100%;
+            height: 150px;
+            background-color: transparent;
+            box-shadow: 10px 10px 100px hsla(240, 40%, 15%);
+            position: absolute;
+            left: 0px;
+            top: 1500px;;
+        }
         .tipsimg img{
             position: absolute;
-            width: 900px;
-            height: 220px;
-            right: 100px;
-            top: 10px;
-            display: none;
+            width: 380px;
+            height: 150px;
+            right: 0px;
+            top: 0px;
         }
         /*Loading畫面----------------------------------*/
         #preloader {
@@ -427,7 +459,7 @@
           right: 1rem;
           bottom: 1rem;
           display: flex;
-          z-index: 1;
+          z-index: 9998;
         }
         .back-to-top::before, .back-to-top::after {
           content: " ";
@@ -452,16 +484,16 @@
         /*底部----------------------------------*/
         .flooter{
             width: 100%;
-            height: 400px;
+            height: 50px;
             background-color: rgb(63, 49, 82);
             position: absolute;
             left: 0px;
-            top: 4300px;
+            top: 4000px;
         }
         .copyright{
           width: 100%;
           text-align: center;
-          padding: 360px 0 0 0;
+          padding: 10px 0 0 0;
         }
         .copyright h2{
             color: #fff;
@@ -470,7 +502,7 @@
 
 /*--------------------------------------------------------------------**/
         @media screen and (min-width:768px) {
-                .body1{
+            .body1{
                 width: 100%;
                 height: 2000px;
                 position: relative;
@@ -494,7 +526,7 @@
             }
             .body3{
                 width: 100%;
-                height: 2000px;
+                height: 1600px;
                 position: relative;
                 background-image: url("img/background-2.jpg");
                 background-attachment: fixed; /* 固定圖像 */
@@ -538,6 +570,7 @@
                 position: absolute;
                 top: 80px;
                 background-color: rgba(0, 0, 0, 0.5);
+                background-image:none;
                 width: 100%;
                 height: 420px;
             }
@@ -551,28 +584,47 @@
                 color:#fff;
                 text-align: center;
                 line-height: 40px;
-                padding: 50px 300px 0;
+                padding: 0px 300px 0;
+            }
+            /*----------------專題影片------------------*/
+            .videobefore{
+                width:100%;
+                height:100px; /*視窗高度*/
+                background-color:#ccc;
+                background: linear-gradient(355.5deg, #fff 50%,transparent 50%);
+                position: absolute;
+                left: 0px;
+                top: 400px;
             }
             .videobar{
                 width: 100%;
                 height: 500px;
                 background-color: #fff;
-                box-shadow: 10px 10px 100px hsla(240, 40%, 15%);
                 position: absolute;
                 left: 0px;
                 top: 500px;
                 overflow:visible;
             }
-            .videobar video{
+            /*RWD Youtube 以及 Vimeo*/
+            .video iframe,.video object,.video embed{
+                position:absolute;
+                top: 50px;;
+                left: 50px;;
+                width: 700px;;
+                height: 400px;;
+            }
+            .videoafter{
+                width:100%;
+                height:100px; /*視窗高度*/
+                background-color:#ccc;
+                background: linear-gradient(355.5deg,transparent 50% ,#fff 50%) center center / 100% 100%;
                 position: absolute;
-                width: auto;
-                height: 400px;
-                top: 50px;
-                left: 50px;
+                left: 0px;
+                top: 1000px;
             }
             .videotext{
                 position: absolute;
-                top: 50px;
+                top: 0px;
                 left: 800px;
                 width: 350px;
                 height: 400px;
@@ -593,6 +645,7 @@
                 width: 100%;
                 height: 800px;
             }
+            /*----------------專題過程------------------*/
             .tips{
                 width: 800px;
                 height: 600px;
@@ -600,7 +653,7 @@
                 box-shadow: 10px 10px 100px hsla(240, 40%, 15%);
                 position: absolute;
                 right: 50px;
-                top: 1120px;
+                top: 1220px;
             }
             .tips h2{
                 text-align: center;
@@ -644,15 +697,6 @@
             }
             .tips2 p{
                 line-height: 30px;
-            }
-            .tips3{
-                width: 100%;
-                height: 250px;
-                background-color: #fff;
-                box-shadow: 10px 10px 100px hsla(240, 40%, 15%);
-                position: absolute;
-                left: 0px;
-                top: 3260px;
             }
             .tip4{
                 width: 100%;
@@ -813,18 +857,28 @@
             }
 
             /*----------------------------------*/
+            .tips3{
+                width: 100%;
+                height: 340px;
+                background-color: #fff;
+                box-shadow: 10px 10px 100px hsla(240, 40%, 15%);
+                position: absolute;
+                left: 0px;
+                top: 3180px;
+            }
             .tipsimg img{
                 position: absolute;
-                width: 900px;
-                height: 220px;
-                right: 100px;
-                top: 10px;
+                width: 100%;
+                height: 350px;
+                right: 0px;
+                top: -10px;
+                display: unset;
             }
             .courseimg2 img{
                 width: 300px;
                 z-index: 1;       
                 padding: 100px 0 0 100px; 
-                display: unset;
+                display: none;
             }
             .courseimg1 img{
                 position: absolute;
@@ -844,12 +898,20 @@
                 right: 300px;
                 z-index: 3;
                 margin-top: 20px;
+                display: unset;
+            }
+            .mangosvg img {
+                position: absolute;
+                width: 650px;
+                top: -30px;
+                left: -15px;
             }
             .gotoben4{
                 position: absolute;
                 right: 100px;
                 bottom: 50px;
                 z-index: 4;
+                display: unset;
             }
             .gotoben4 a{
                 text-decoration: none;
@@ -887,45 +949,45 @@
             }
             /*返回頂部按鈕----------------------------------*/
             .back-to-top {
-            width: 3rem;
-            height: 3rem;
-            padding: 0;
-            margin: 0;
-            border: .5px solid #fff;
-            border-radius: 33%;
-            opacity: 0.6;
-            background: #000;
-            cursor: pointer;
-            position:fixed;
-            right: 1rem;
-            bottom: 1rem;
-            display: flex;
-            z-index: 1;
+                width: 3rem;
+                height: 3rem;
+                padding: 0;
+                margin: 0;
+                border: .5px solid #fff;
+                border-radius: 33%;
+                opacity: 0.6;
+                background: #000;
+                cursor: pointer;
+                position:fixed;
+                right: 1rem;
+                bottom: 1rem;
+                display: flex;
+                z-index: 1;
             }
             .back-to-top::before, .back-to-top::after {
-            content: " ";
-            width: 25px;
-            height: 6px;
-            top: 23px;
-            border-radius: 3px;
-            background: #f90;
-            position: absolute;
+                content: " ";
+                width: 25px;
+                height: 6px;
+                top: 23px;
+                border-radius: 3px;
+                background: #f90;
+                position: absolute;
             }
             .back-to-top::before {
-            transform: rotate(-45deg) translate(0, -50%);
-            left: 0.42rem;
+                transform: rotate(-45deg) translate(0, -50%);
+                left: 0.42rem;
             }
             .back-to-top::after {
-            transform: rotate(45deg) translate(0, -50%);
-            right: 0.42rem;
+                transform: rotate(45deg) translate(0, -50%);
+                right: 0.42rem;
             }
             .back-to-top:focus {
-            outline: none;
+                outline: none;
             }
             /*底部----------------------------------*/
             .flooter{
                 width: 100%;
-                height: 400px;
+                height: 60px;
                 background-color: rgb(63, 49, 82);
                 position: absolute;
                 left: 0px;
@@ -934,18 +996,20 @@
             .copyright{
                 width: 100%;
                 text-align: center;
-                padding: 360px 0 0 0;
+                padding: 20px 0 0 0;
             }
             .copyright h2{
-                    color: #fff;
-                    font-size: 20px;
+                color: #fff;
+                font-size: 20px;
             }
         }
     </style>
 </head>
 <body>
     <div id="preloader">
-        <div id="status"><img src="gif\loading.gif"/></div>
+        <div id="status">
+            <img src="gif\loading.gif"/>
+        </div>
     </div>
 
     <div class="banner">
@@ -967,9 +1031,15 @@
         </p>        
     </div>
 
+    <div class="videobefore">
+
+    </div>
     <div class="videobar">
         <a name="vdo"></a>
-        <video src="mp4/潛水1.mp4"  muted="true" autoplay="true" loop="true"></video>
+        <div class="video">
+            <iframe  src="https://www.youtube.com/embed/i3ZBesRmG_g"></iframe>            
+        </div>
+
         <div class="videotext">
             <h2>專題影片</h2>
             <p>在我們完成我們的植物害蟲辨識系統後，我們決定來拍一部系統使用影片，也透過這個影片
@@ -977,6 +1047,9 @@
                 而立刻上手，不用在再學，也能馬上使用。
             </p>
         </div>
+    </div>
+    <div class="videoafter">
+        
     </div>
 
     <div class="body1"></div>
@@ -1026,6 +1099,9 @@
         <div class="gotoben4">
             <a href="identify.html">立刻辨識去></a>
         </div>
+        <div class="mangosvg">
+            <img src="img\mango.svg" alt="">
+        </div>
     </div>
 
     <div class="tips tips2">
@@ -1058,9 +1134,8 @@
 
     <div class="tips3">
         <div class="tipsimg">
-            <img src="img\流程圖.jpg" >
+            <img src="img\course.jpg" >
         </div>
-        
     </div>
 
 
@@ -1140,7 +1215,6 @@
         <!-- jQuery Plugin -->
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
     <script src="js/比賽.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
     <script src="js/aos.js"></script>
     <script src="js/loading.js"></script> 
     <script src="js/jquery.min.js"></script>
