@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <!-- Bootstrap CSS -->
+            <link rel="stylesheet" href="css/bootstrap.min.css">
+            <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+            <link rel="stylesheet" href="js/aos.css"/>
+    <title>AI植物辨識</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .body1{
+            width: 100%;
+            height: 860px;
+            position: relative;
+            top: 650px;
+            background-image: url("img/videobg1.jpg");
+            z-index: -9999;
+        }
+        .body2{
+            width: 100%;
+            height: 1400px;
+            position: relative;
+            background-image: url("img/background-3.png");
+            background-attachment: fixed; /* 固定圖像 */
+            background-repeat: no-repeat;
+            background-position: center center;
+            z-index: -9999;
+            top: 500px;
+        }
+        .body3{
+            width: 100%;
+            height: 1550px;
+            position: relative;
+            background-image: url("img/background-2.jpg");
+            background-attachment: fixed; /* 固定圖像 */
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
+            z-index: -9999;
+        }
+        .banner{
+            width: 100%;
+            height: 80px;
+            background-color: rgb(83, 67, 67);
+            position: absolute;
+            top: 0px;
+            right: 0;
+            z-index: 999;
+        }
+        .banner nav{
+            width: auto;
+            height: auto;
+            position: absolute;
+            top: 20px;
+            right: 15px;
+        }
+        .banner nav a{
+            text-decoration: none;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+            padding: 0 5px;
+            border-right: 1px solid #fff;
+            background-color: rgba(255, 255, 255, 0);
+        }
+        .banner nav a:first-child{
+            display: none;
+        }
+        .banner nav a:hover{
+            border-bottom: 1px solid #fff;
+        }
+        .header{
+            position: absolute;
+            top: 80px;
+            background-color: rgb(0,0,0, 0.5);
+            width: 100%;
+            height: 580px;
+        }
+        .headervideo{
+            position: relative;
+            left: 0;
+        }
+        .headervideo video{
+            object-fit: cover;
+            width: 100vw;
+            height: 660px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -9999;
+        }
+        .headertext{
+            width: 100%;
+            height: auto;
+            margin-top: 80px;
+        }
+        .header h2{
+            text-align: center;
+            color: #fff;
+            font-size: 60px;
+            margin: 20px 0;
+        }
+        .header p{
+            color:#fff;
+            text-align: center;
+            line-height: 40px;
+            padding: 0px 30px ;
+            margin-bottom: 50px;
+        }
+        /*----------------專題影片------------------*/
+        .videobefore{
+            display: none;
+        }
+        .videobar{
+            width: 100%;
+            height: 580px;
+            top: 655px;
+            display: flex;
+            justify-content: center;
+            position: relative;
+            background-image: url("img/videobg.jpg");
+        }
+        .videobarbg{
+            width: 100%;
+            height: 580px;
+            background-color: rgb(0,0,0, 0.5);
+            position: absolute;
+            top: 0px;
+            display: flex;
+            justify-content: center;
+        }
+        /*RWD Youtube 以及 Vimeo*/
+        .video iframe,.video object,.video embed{
+            width: 350px;
+            height: 195px;
+            margin-top: 50px;
+        }
+        .videoafter{
+            display: none;
+        }
+        .videotexth{
+            position: absolute;
+            top: 190px;
+            width: 350px;
+            height: auto;
+            display: flex;
+            justify-content: center;
+        }
+        .videotextp{
+            position: absolute;
+            top: 110px;
+            width: 100%;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+        }
+        .videotexth h2{
+            font-size: 40px;
+            margin-bottom: 10px;
+            margin-top: 60px;
+            text-align: center;
+            color: #fff;
+        }
+        .videotextp p{
+            font-size: 20px;
+            line-height: 40px;
+            text-align: center;
+            height: auto;
+            color: #fff;
+        }
+        .bodycover{
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 100%;
+            height: 800px;
+        }
+        /*----------------專題過程------------------*/
+        .tips{
+            width: 95%;
+            height: 400px;
+            background-color: #fff;
+            box-shadow: 10px 10px 100px hsla(240, 40%, 15%);
+            border-radius: 10px;
+            position: absolute;
+            right: 10px;
+            top: 1300px;
+            overflow: auto;
+        }
+        .tips h2{
+            text-align: center;
+            font-size: 50px;
+            margin-top: 20px;
+        }
+        .tips p{
+            margin: 20px 10px ;
+            font-size: 20px;
+            line-height: 35px;
+        }
+        .tips ul{
+            margin: 20px 50px ;
+            font-size: 15px;
+            font-weight: 900;
+        }
+        .tips2{
+            width: 95%;
+            height: 500px;
+            background-color: #fff;
+            box-shadow: 10px 10px 100px hsla(240, 40%, 15%);
+            position: absolute;
+            left: 10px;
+            top: 2040px;
+        }
+        .tips2 h2{
+            font-size: 35px;
+        }
+        .tips2 img{
+            width: 200px;
+            height: 150px;
+        }
+        .tips2 p{
+            line-height: 30px;
+        }
+        .tip4{
+            width: 100%;
+            position: absolute;
+            top: 3000px;
+        }
+        .tip4 h2{
+            text-align: center;
+            font-size: 50px;
+            color: #fff;
+            margin-bottom: 50px;
+        }
+        .tip4 h2::before{
+            content: '';
+            width: 100%;
+            height: 5px;
+            display: inline-block;
+            background: #fff;
+            border-radius: 1px;
+            vertical-align: middle;
+        }
+        .tip4 h2::after{
+            content: '';
+            width: 100%;
+            height: 5px;
+            display: inline-block;
+            background: #fff;
+            border-radius: 1px;
+            vertical-align: middle;
+        }
+
+        /*----------------心得------------------*/
+            /* Hide expandable content by default */
+        .jaihon{
+            width: 100%;
+            height: 300px;
+            position: relative;
+        }
+        .jaihonpic{
+            width: 350px;
+            height: 260px;
+            background-color: #fff;
+            border: rgb(167, 166, 150) 5px solid;
+            margin-left: 12px;
+        }
+        .jaihonpic img{
+            width: 340px;
+            height: 250px;
+        }
+        .jaihontext{
+            width: 350px;
+            height: auto;
+            display: inline-block;
+            position: absolute;
+            top: 280px;
+            padding: 10px;
+            margin-left: 10px;
+        }
+        .jaihontext p{
+            height: 210px;
+            font-size: 16px;
+            font-weight: 900;
+            line-height: 30px;
+            color: #fff;
+            overflow: scroll;
+        }
+        /*2----------------------------------*/
+        .weiyang{
+            width: 100%;
+            height: 300px;
+            position: relative;
+            top: 230px;
+        }
+        .weiyangpic{
+            width: 350px;
+            height: 260px;
+            background-color: #fff;
+            border: rgb(167, 166, 150) 5px solid;
+            display: inline-block;
+            margin-left: 12px;
+        }
+        .weiyangpic img{
+            width: 340px;
+            height: 250px;
+        }
+        .weiyangtext{
+            width: 350px;
+            height: auto;
+            display: inline-block;
+            padding: 10px;
+            position: absolute;
+            top: 280px;
+            margin-left: 10px;
+        }
+        .weiyangtext p{
+            font-size: 16px;
+            font-weight: 900;
+            line-height: 30px;
+            color: #fff;
+        }
+        /*3----------------------------------*/
+        .teinwei{
+            width: 100%;
+            height: 300px;
+            position: relative;
+            display: none;
+        }
+        .teinweipic{
+            width: 500px;
+            height: 300px;
+            background-color: #fff;
+            border: rgb(167, 166, 150) 10px solid;
+            display: inline-block;
+            margin-left: 100px;
+        }
+        .teinweitext{
+            width: 500px;
+            height: auto;
+            display: inline-block;
+            margin-left: 50px;
+            position: absolute;
+            top: 80px;
+        }
+        .teinweitext p{
+            font-size: 20px;
+            font-weight: 900;
+            line-height: 30px;
+            color: #fff;
+        }
+        /*4----------------------------------*/
+        .weihow{
+            width: 100%;
+            height: 300px;
+            position: relative;
+            display: none;
+        }
+        .weihowpic{
+            width: 500px;
+            height: 300px;
+            background-color: #fff;
+            border: rgb(167, 166, 150) 10px solid;
+            display: inline-block;
+            margin-left: 650px;
+        }
+        .weihowtext{
+            width: 500px;
+            height: auto;
+            display: inline-block;
+            margin-left: 100px;
+            position: absolute;
+            top: 80px;
+        }
+        .weihowtext p{
+            font-size: 20px;
+            font-weight: 900;
+            line-height: 30px;
+            color: #fff;
+        }
+
+        /*開始辨識----------------------------------*/
+        .course{
+            position: absolute;
+            top: 2660px;
+            width: 100%;
+            height: 250px;
+            background-color: #fff;
+            box-shadow: 10px 10px 100px hsla(240, 40%, 15%);
+            display: flex;
+            justify-content: center;           
+        }
+        .courseimg1 img{
+            display: none;
+        }
+        .course h2{
+            display: none;
+        }
+        .mangosvg img {
+            position: absolute;
+            width: 360px;
+            top: -10px;
+            left: 15px;
+
+        }
+        .gotoben3{
+            display: none;
+        }
+        .gotoben4{
+            position: absolute;
+            right: 30px;
+            bottom: 10px;
+            z-index: 4;
+        }
+        .gotoben4 a{
+            text-decoration: none;
+            color: #000;
+            font-size: 20px;
+            font-weight: 900;
+            background-color: rgb(105, 204, 92);
+            border-bottom: 1px solid #000;
+            border-radius: 100px;
+            padding: 3px 8px;
+        }
+        .gotoben4 a:hover{
+            background-color: rgb(94, 116, 91);
+            box-shadow: 3px 3px 3px hsla(240, 40%, 15%);
+        }
+        /*----------------------------------*/
+        .tips3{
+            width: 100%;
+            height: 120px;
+            background-color: transparent;
+            box-shadow: 10px 10px 100px hsla(240, 40%, 15%);
+            position: absolute;
+            left: 0px;
+            top: 1800px;;
+        }
+        .tipsimg img{
+            width: 100%;
+            height: 120px;
+        }
+        /*Loading畫面----------------------------------*/
+        #preloader {
+            /*   這是整個會蓋住畫面的底色色塊  */
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            left: 0%;
+            top: 0%;
+            background:linear-gradient(rgb(62, 151, 54), rgb(142, 230, 157));
+            z-index: 9999;
+            }
+        #status {
+            /*   這是中間loading的gif坐標css,我們盡量讓他畫面置中  */
+            position: fixed;
+            width: 218px;
+            height: 419px;
+            margin-left: -180px;
+            margin-top: -160px;
+            left: 50%;
+            top: 50%;
+        }
+        /*返回頂部按鈕----------------------------------*/
+        .back-to-top {
+          width: 3rem;
+          height: 3rem;
+          padding: 0;
+          margin: 0;
+          border: .5px solid #fff;
+          border-radius: 33%;
+          opacity: 0.6;
+          background: #000;
+          cursor: pointer;
+          position:fixed;
+          right: 1rem;
+          bottom: 1rem;
+          display: flex;
+          z-index: 9998;
+        }
+        .back-to-top::before, .back-to-top::after {
+          content: " ";
+          width: 25px;
+          height: 6px;
+          top: 23px;
+          border-radius: 3px;
+          background: #f90;
+          position: absolute;
+        }
+        .back-to-top::before {
+          transform: rotate(-45deg) translate(0, -50%);
+          left: 0.42rem;
+        }
+        .back-to-top::after {
+          transform: rotate(45deg) translate(0, -50%);
+          right: 0.42rem;
+        }
+        .back-to-top:focus {
+          outline: none;
+        }
+        /*底部----------------------------------*/
+        .flooter{
+            width: 100%;
+            height: 50px;
+            background-color: rgb(63, 49, 82);
+            position: absolute;
+            left: 0px;
+            top: 4310px;
+        }
+        .copyright{
+          width: 100%;
+          text-align: center;
+          padding: 15px 0 0 0;
+        }
+        .copyright h2{
+            color: #fff;
+            font-size: 15px;
+        }
+
+/*--------------------------------------------------------------------**/
+        @media screen and (min-width:768px) {
+            .body1{
+                width: 100%;
+                height: 1800px;
+                position: relative;
+                background-image: url("img/background.jpg");
+                background-attachment: fixed; /* 固定圖像 */
+                background-repeat: no-repeat;
+                background-position: center center;
+                background-size: cover;
+                z-index: -9999;
+            }
+            .body2{
+                width: 100%;
+                height: 1400px;
+                position: relative;
+                background-image: url("img/background-3.png");
+                background-attachment: fixed; /* 固定圖像 */
+                background-repeat: no-repeat;
+                background-position: center center;
+                background-size: cover;
+                z-index: -9999;
+            }
+            .body3{
+                width: 100%;
+                height: 1800px;
+                position: relative;
+                background-image: url("img/background-2.jpg");
+                background-attachment: fixed; /* 固定圖像 */
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-position: center center;
+                z-index: -9999;
+            }
+            .banner{
+                width: 100%;
+                height: 80px;
+                background-color: rgb(83, 67, 67);
+                box-shadow: 0px 10px 100px hsla(240, 40%, 15%);
+                position: absolute;
+                top: 0px;
+                right: 0;
+            }
+            .banner nav{
+                width: auto;
+                height: auto;
+                position: absolute;
+                top: 20px;
+                right: 30px;
+            }
+            .banner nav a{
+                text-decoration: none;
+                color: #fff;
+                font-size: 20px;
+                font-weight: 600;
+                padding: 10px 10px;
+                border: none;
+                background-color: rgba(255, 255, 255, 0);
+            }
+            .banner nav a:first-child{
+                display: unset;
+            }
+            .banner nav a:hover{
+                border-bottom: 1px solid #fff;
+            }
+            .header{
+                position: absolute;
+                top: 80px;
+                background-color: rgba(0, 0, 0, 0.5);
+                background-image:none;
+                width: 100%;
+                height: 420px;
+            }
+            .header h2{
+                text-align: center;
+                color: #fff;
+                font-size: 60px;
+                margin: 20px 0;
+            }
+            .header p{
+                color:#fff;
+                text-align: center;
+                line-height: 40px;
+                padding: 0px 300px 0;
+            }
+            /*----------------專題影片------------------*/
+            .videobefore{
+                width:100%;
+                height:100px; /*視窗高度*/
+                background-color:#ccc;
+                background: linear-gradient(355.5deg, #fff 50%,transparent 50%);
+                position: absolute;
+                left: 0px;
+                top: 400px;
+                display: unset;
+            }
+            .videobar{
+                width: 100%;
+                height: 500px;
+                background-color: #fff;
+                background-image: none;
+                position: absolute;
+                left: 0px;
+                top: 500px;
+                overflow:visible;
+                display: flex;
+                align-items: center;
+            }
+            .videobarbg{
+                width: 100%;
+                height: 540px;
+                background-color: rgb(0,0,0, 0);
+                position: absolute;
+                top: 0px;
+                display: flex;
+                justify-content: center;
+            }
+            /*RWD Youtube 以及 Vimeo*/
+            .video iframe,.video object,.video embed{
+                position:absolute;
+                top: 50px;;
+                left: 50px;;
+                width: 700px;;
+                height: 400px;;
+            }
+            .videoafter{
+                width:100%;
+                height:100px; /*視窗高度*/
+                background-color:#ccc;
+                background: linear-gradient(355.5deg,transparent 50% ,#fff 50%) center center / 100% 100%;
+                position: absolute;
+                left: 0px;
+                top: 1000px;
+                display: unset;
+            }
+            .videotexth{
+                position: absolute;
+                right: 70px;
+                top: 50px;
+                width: 400px;
+                height: 400px;
+                text-align: left;
+            }
+            .videotextp{
+                width: 400px;
+                height: auto;
+                text-align: left;
+                display: flex;
+                align-items: center;
+            }
+            .videotexth h2{
+                font-size: 60px;
+                margin-bottom: 20px;
+                color: #000;
+            }
+            .videotextp p{
+                padding-top: 20px;
+                font-size: 20px;
+                line-height: 40px;
+                color: #000;
+            }
+            .bodycover{
+                position: absolute;
+                right: 0;
+                top: 0;
+                width: 100%;
+                height: 800px;
+            }
+            /*----------------專題過程------------------*/
+            .tips{
+                width: 800px;
+                height: 600px;
+                background-color: #fff;
+                box-shadow: 10px 10px 100px hsla(240, 40%, 15%);
+                position: absolute;
+                border-radius: 10px;
+                right: 50px;
+                top: 1220px;
+            }
+            .tips h2{
+                text-align: center;
+                font-size: 60px;
+                margin-top: 20px;
+            }
+            .tips p{
+                margin: 20px 50px ;
+                font-size: 15px;
+                line-height: 35px;
+            }
+            .tips ul{
+                margin: 20px 50px ;
+                font-size: 15px;
+                font-weight: 900;
+            }
+            .tips2{
+                width: 800px;
+                height: 550px;
+                background-color: #fff;
+                box-shadow: 10px 10px 100px hsla(240, 40%, 15%);
+                position: absolute;
+                left: 50px;
+                top: 2440px;
+            }
+            .tips2 h2{
+                font-size: 40px;
+            }
+            .tips2 img{
+                width: 380px;
+                height: 280px;
+            }
+            .course{
+                position: absolute;
+                top: 1920px;
+                width: 100%;
+                height: 400px;
+                background-color: #fff;
+                box-shadow: 10px 10px 100px hsla(240, 40%, 15%);
+                z-index: 1;
+            }
+            .tips2 p{
+                line-height: 35px;
+            }
+            .tip4{
+                width: 100%;
+                position: absolute;
+                top: 3600px;
+            }
+            .tip4 h2{
+                text-align: center;
+                font-size: 50px;
+                color: #fff;
+                margin-bottom: 50px;
+            }
+            .tip4 h2::before{
+                content: '';
+                width: 450px;
+                height: 5px;
+                display: inline-block;
+                background: #fff;
+                border-radius: 1px;
+                vertical-align: middle;
+            }
+            .tip4 h2::after{
+                content: '';
+                width: 450px;
+                height: 5px;
+                display: inline-block;
+                background: #fff;
+                border-radius: 1px;
+                vertical-align: middle;
+            }
+
+            /*----------------心得------------------*/
+                /* Hide expandable content by default */
+            .jaihon{
+                width: 100%;
+                height: 300px;
+                position: relative;
+            }
+            .jaihonpic{
+                width: 440px;
+                height: 300px;
+                background-color: #fff;
+                border: rgb(167, 166, 150) 10px solid;
+                display: inline-block;
+                margin-left: 130px;
+            }
+            .jaihonpic img{
+                width: 420px;
+                height: 280px;
+            }
+            .jaihontext{
+                width: 500px;
+                height: auto;
+                display: inline-block;
+                margin-left: 90px;
+                position: absolute;
+                top: -20px;
+            }
+            .jaihontext p{
+                font-size: 20px;
+                font-weight: 900;
+                line-height: 30px;
+                color: #fff;
+                overflow: unset;
+            }
+            /*2----------------------------------*/
+            .weiyang{
+                width: 100%;
+                height: 300px;
+                position: relative;
+                top: 10px;
+            }
+            .weiyangpic{
+                width: 440px;
+                height: 300px;
+                background-color: #fff;
+                border: rgb(167, 166, 150) 10px solid;
+                display: inline-block;
+                margin-left: 680px;
+            }
+            .weiyangpic img{
+                width: 420px;
+                height: 280px;
+            }
+            .weiyangtext{
+                width: 500px;
+                height: auto;
+                display: inline-block;
+                margin-left: 100px;
+                position: absolute;
+                top: 30px;
+            }
+            .weiyangtext p{
+                font-size: 20px;
+                font-weight: 900;
+                line-height: 30px;
+                color: #fff;
+            }
+            /*3----------------------------------*/
+            .teinwei{
+                width: 100%;
+                height: 300px;
+                position: relative;
+                display: unset;
+                top: 10px;
+            }
+            .teinweipic{
+                width: 440px;
+                height: 300px;
+                background-color: #fff;
+                border: rgb(167, 166, 150) 10px solid;
+                display: inline-block;
+                margin-left: 130px;
+            }
+            .teinweipic img{
+                width: 420px;
+                height: 280px;
+            }
+            .teinweitext{
+                width: 500px;
+                height: auto;
+                display: inline-block;
+                margin-left: 90px;
+                position: absolute;
+                top: -80px;
+            }
+            .teinweitext p{
+                font-size: 20px;
+                font-weight: 900;
+                line-height: 30px;
+                color: #fff;
+            }
+            /*4----------------------------------*/
+            .weihow{
+                width: 100%;
+                height: 300px;
+                position: relative;
+                display: unset;
+                top: 10px;
+            }
+            .weihowpic{
+                width: 440px;
+                height: 300px;
+                background-color: #fff;
+                border: rgb(167, 166, 150) 10px solid;
+                display: inline-block;
+                margin-left: 680px;
+            }
+            .weihowpic img{
+                width: 420px;
+                height: 280px;                
+            }
+            .weihowtext{
+                width: 500px;
+                height: auto;
+                display: inline-block;
+                margin-left: 100px;
+                position: absolute;
+                left: -560px;
+                top: 220px;
+            }
+            .weihowtext p{
+                font-size: 20px;
+                font-weight: 900;
+                line-height: 30px;
+                color: #fff;
+            }
+
+            /*----------------------------------*/
+            .tips3{
+                width: 100%;
+                height: 340px;
+                background-color: #fff;
+                box-shadow: 10px 10px 100px hsla(240, 40%, 15%);
+                position: absolute;
+                left: 0px;
+                top: 3180px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .tipsimg img{
+                width: 800px;
+                height: 250px;
+                display: unset;
+            }
+            .courseimg1 img{
+                position: absolute;
+                right: 106px;
+                width: 600px;
+                height: 350px;
+                z-index: 1;
+                margin-top: 20px;
+                display: unset;
+            }
+            .course h2{
+                position: absolute;
+                text-align: center;
+                font-size: 50px;
+                font-weight: 900;
+                top: 10px;
+                right: 300px;
+                z-index: 3;
+                margin-top: 20px;
+                display: unset;
+            }
+            .mangosvg img {
+                position: absolute;
+                width: 650px;
+                top: -30px;
+                left: -15px;
+            }
+            .gotoben4{
+                position: absolute;
+                right: 100px;
+                bottom: 50px;
+                z-index: 4;
+                display: unset;
+            }
+            .gotoben4 a{
+                text-decoration: none;
+                color: #000;
+                font-size: 20px;
+                font-weight: 900;
+                background-color: rgb(105, 204, 92);
+                border-bottom: 1px solid #000;
+                border-radius: 100px;
+                padding: 3px 8px;
+            }
+            .gotoben4 a:hover{
+                background-color: rgb(94, 116, 91);
+                box-shadow: 3px 3px 3px hsla(240, 40%, 15%);
+            }
+            #preloader {
+                /*   這是整個會蓋住畫面的底色色塊  */
+                position: fixed;
+                width: 100%;
+                height: 100%;
+                left: 0%;
+                top: 0%;
+                background:linear-gradient(rgb(62, 151, 54), rgb(142, 230, 157));
+                z-index: 9999;
+                }
+            #status {
+                /*   這是中間loading的gif坐標css,我們盡量讓他畫面置中  */
+                position: fixed;
+                width: 218px;
+                height: 419px;
+                margin-left: -140px;
+                margin-top: -160px;
+                left: 50%;
+                top: 50%;
+            }
+            /*返回頂部按鈕----------------------------------*/
+            .back-to-top {
+                width: 3rem;
+                height: 3rem;
+                padding: 0;
+                margin: 0;
+                border: .5px solid #fff;
+                border-radius: 33%;
+                opacity: 0.6;
+                background: #000;
+                cursor: pointer;
+                position:fixed;
+                right: 1rem;
+                bottom: 1rem;
+                display: flex;
+                z-index: 1;
+            }
+            .back-to-top::before, .back-to-top::after {
+                content: " ";
+                width: 25px;
+                height: 6px;
+                top: 23px;
+                border-radius: 3px;
+                background: #f90;
+                position: absolute;
+            }
+            .back-to-top::before {
+                transform: rotate(-45deg) translate(0, -50%);
+                left: 0.42rem;
+            }
+            .back-to-top::after {
+                transform: rotate(45deg) translate(0, -50%);
+                right: 0.42rem;
+            }
+            .back-to-top:focus {
+                outline: none;
+            }
+            /*底部----------------------------------*/
+            .flooter{
+                width: 100%;
+                height: 60px;
+                background-color: rgb(63, 49, 82);
+                position: absolute;
+                left: 0px;
+                top: 5000px;
+            }
+            .copyright{
+                width: 100%;
+                text-align: center;
+                padding: 20px 0 0 0;
+            }
+            .copyright h2{
+                color: #fff;
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="preloader">
+        <div id="status">
+            <img src="gif\loading.gif"/>
+        </div>
+    </div>
+
+    <div class="banner">
+        <nav>
+            <a href="#vdo" class="scroll">專題影片</a>
+            <a href="#DOM">相關文件</a>
+            <a href="#COU">開始辨識</a>
+            <a href="#teacher">老師的話</a>
+            <a href="#student">用戶好評</a>
+        </nav>            
+    </div>
+    
+    <div class="headervideo">
+        <div class="header">
+           <video src="mp4\finsh.mp4"  muted="true" autoplay="true" loop="true"></video>            
+            <div class="headertext">
+                <h2>專案概論</h2>
+                <p>我們是芒果大夫，當初因為屏東的芒果果農，每年都會遭受病蟲害的騷擾，種類繁多
+                    ，導致年輕或是年紀較大的果農常常會無法記清楚每一個病蟲的特徵，就沒辦法對症下藥。
+                    有了我們的AI辨識軟體，照一張相片就可以輕鬆讓農民們知道我們的芒果是生了什麼病，
+                    可以即時對症下藥，避免病蟲害範圍擴散。
+                </p>             
+            </div>
+        </div>
+    </div>
+
+    <div class="videobefore"></div>
+
+    <div class="videobar">
+        <a name="vdo"></a>
+        <div class="videobarbg">
+            <div class="video">
+                <iframe src="https://www.youtube.com/embed/P4xChdswTwo" ></iframe>           
+            </div>
+
+            <div class="videotexth">
+                <h2>專題影片</h2>
+                <div class="videotextp">
+                    <p>在我們完成植物病蟲辨識系統後，我們決定來拍一部系統使用影片，也透過這個影片
+                        讓大家看完就知道我們的專題是在做什麼，也讓其他第一次使用的也能透過觀看此影片
+                        而立刻上手，不用再學，也能馬上使用。
+                    </p>               
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="videoafter"></div>
+
+    <div class="body1"></div>
+    <div class="body2"></div>
+    <div class="body3"></div>
+
+
+    <div class="tips">
+        <a name="DOM"></a>
+        <h2>專題構想過程</h2>
+        <p>其實在我們開始想說我們的主題要做什麼的時候，有先列出幾點 :</p>
+            <ul>
+                1. 方便好用
+            </ul>
+            <ul>
+                2. 實用性高
+            </ul>
+            <ul>
+                3. 功能簡單不複雜
+            </ul>
+            <ul>
+                4. 市面上沒有的
+            </ul>
+        <p>經過以上幾點後，我們曾討論出的主題其實還滿多的，
+            <br><strong> >> 例如:AI教室點名、AI辨識車距警示系統、圖書館書本自動租借、等等 . . . .。</strong><br>
+            但經由和老師的一番討論後，有些不是太複雜，以我們的能力可能做不出來，
+            不然就是老師在對於人的隱私這塊不建議我們去作人臉辨識，於是左思右想之後
+            我們的組長就提出一個想法，就是可以去辨識農作物葉子上的害蟲。
+            這個想法是因為我們組長本身家裡就是在賣農藥的，所以很多顧客家中的農作物，
+            <br><strong> >> 例如:芒果、荔枝等等...</strong><br>
+            所以就想說如果有一個辨識系統可以讓農民知道今天我們的植物上的是什麼害蟲，
+            並在辨識結果上可以標註該如何使用哪種農藥、劑量、以及防治辦法等等時，可以
+            更有效的幫助農民減少農民在農作物上的損失，也可以幫助將來要承接自家土地的後代
+            可以透過這款辨識系統，讓我們能夠快了解到我們面對的是什麼。也能更快讓人更快上手。
+        </p>
+    </div>
+
+    <div class="course">
+        <a name="COU"></a>
+        <h2>辨識流程</h2>
+        <div class="courseimg1">
+            <img src="gif\拍照.gif">
+        </div>
+        <div class="gotoben4">
+            <a href="identify.html">立刻辨識去></a>
+        </div>
+        <div class="mangosvg">
+            <img src="img\mango.svg">
+        </div>
+    </div>
+
+    <div class="tips tips2">
+        <a name="teacher"></a>
+        <h2>我們的老師</h2>
+        <img src="img\teacher.jpg" style="float: left ; margin: 15px" >
+        <p> 我們老師他是畢業於美國的南加州大學電腦科學博士，目前是朝陽科技大學資訊管理系副教授，
+            是台灣的自由軟體與反對封閉格式的主要推動者之一。
+            他使部份台灣人意識到他所謂的「知識自由傳播」的意義，
+            有人稱他為「台灣自由軟體先驅者」。<br>
+        </p>
+
+        <p>    
+            <strong> 我們老師有話想說:</strong><br>
+            本專題沒有接受任何經費的補助、 沒有採購任何軟體。 
+            芒果大夫們也沒有修過人工智慧課程， 幾乎只靠著上網搜尋自由軟體
+            以及網友們無私開放分享的教學文， 就完成了這個專題。 
+            他們又將完成的作品上網分享， 取之於網路， 回饋於網路， 
+            同時也等於幫家裡把事業拓展到網路上， 成為一小塊新的廣告招牌。 
+            懂得善用網路上各種自由開放資源以及懂得分享作品善用網路行銷的人們，
+             可以用很少的資源創造出有價值的成品， 芒果大夫們做了最好的示範！
+        </p>
+    </div>
+
+    <div class="tips3">
+        <div class="tipsimg">
+            <img src="img\course.jpg" >
+        </div>
+    </div>
+
+
+    <div class="tip4">
+        <a name="student"></a>
+        <h2>用戶好評</h2>
+        
+        <div class="jaihon">
+            <div class="jaihonpic" data-aos="zoom-in" data-aos-duration="1000" data-aos-anchor-placement="center-bottom">
+                <img src="img\user1.jpg">
+            </div>
+            <div class="jaihontext">
+                <p>
+                    身為一位上了年紀的在地台灣果農，這個芒果大夫的系統，
+                    真的可以幫我檢測我們寶貝芒果樹的葉子、果實，到底是被什麼壞壞害蟲入侵!
+                    因為我年紀也大了，老花眼加上常常一巡果園，體力不支，
+                    看那個芒果樹，都看不清楚了!
+                    現在只要一支手機，就可以幫我解決這個問題!有了這個系統，
+                    現場拍一張照片，就可以很方便而且快速地讓我知道現在這棵芒果樹的狀況，
+                    未來我兒子要接這片果園的時候，也不用我整天陪著他巡園，
+                    他只要照著系統給的提示，針對不同種類的病症下對的藥，實在是太方便啦!
+                </p>
+            </div>         
+        </div>
+
+        <div class="weiyang">
+            <div class="weiyangtext" >
+                <p>
+                    還是一位業餘農夫的我，進入芒果栽培還不到幾個月的時間，
+                    目前還沒學會如何辨別芒果病蟲害，所以常常會去FB的社團問問題，
+                    而在社團上許多的前輩踴躍且熱心的告訴我答案，
+                    但有些時候一種病蟲害常常都會有好幾個答案，以致於讓我我模糊不清，
+                    而剛好隔壁的小孩他提供了我一個網站讓我能以圖片的方式，
+                    了解自己的芒果目前得病徵。
+                </p>
+            </div> 
+            <div class="weiyangpic" data-aos="zoom-in" data-aos-duration="1000" data-aos-anchor-placement="center-bottom">
+                <img src="img\user3.jpg">
+            </div> 
+        </div>
+        <div class="teinwei">
+            <div class="teinweipic" data-aos="zoom-in" data-aos-duration="1000" data-aos-anchor-placement="center-bottom">
+                <img src="https://picsum.photos/480/280?random5">
+            </div>
+            <div class="teinweitext">
+                <p>
+                    當隔壁鄰居推薦給我著個網站時，一開始還在想說，
+                    這種東西不是用眼睛判斷不是比較快嗎，
+                    但是用了一陣子之後，才發現他的幾個優點，
+                    只要有網路或是QRcode，就可以隨時連線到伺服器網站，
+                    不用特地去下載應用程式，也提升了我在檢查水果時的快速性，
+                    同時眼睛也變得比較輕鬆了，也不用怕水果的栽培方法流傳了，
+                    只要存在手機裡就可以了。
+                </p>
+            </div>  
+        </div>
+        <div class="weihow">
+            <div class="weihowtext" >
+                <p>
+                    第一次使用這個軟體，身為一個愛吃芒果的芒果愛好者來說，
+                    以前都不知道芒果黑黑一點一點是有病菌的，我都以為是很正常的，
+                    沒想到今天想說使用一下這個阮堤來試試看，沒想到，唉呦偎呀，
+                    這怎麼會是一種病啦，我一顆還花了40幾塊才買到的，怎麼會是有病菌的啦!
+                    阿不就還好我有用，不然我都吃有病菌的芒果。真是太感謝有這套軟體了
+                </p>
+            </div>
+            <div class="weihowpic" data-aos="zoom-in" data-aos-duration="1000" data-aos-anchor-placement="center-bottom">
+                <img src="img\user4.jpg">
+            </div>  
+        </div>
+
+
+    </div>
+
+    <div class="flooter">
+        <div class="copyright">
+            <h2> Copyright &copy; 2021 MangoDoctor</h2>
+          </div>
+    </div>
+
+    <button class="js-back-to-top back-to-top"></button>
+
+        <!-- jQuery Plugin -->
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+    <script src="js/比賽.js"></script>
+    <script src="js/aos.js"></script>
+    <script src="js/loading.js"></script> 
+    <script src="js/jquery.min.js"></script>
+    <script src="js/Anchor point.js"></script>
+    <script src="js/opentips.js"></script>    
+    <script>
+        AOS.init({
+          easing: 'ease-in-out-sine'
+        });
+      </script>
+</body>
+</html>
